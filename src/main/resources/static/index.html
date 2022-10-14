@@ -58,29 +58,30 @@
             <button type="submit" class="btn btn-primary mb-3">Создать</button>
         </div>
     </form>
+    <p></p>
 
-<!--    <h3>Корзина</h3>-->
-<!--    <p></p>-->
-<!--    <table class="table table-hover">-->
-<!--        <thead>-->
-<!--        <tr>-->
-<!--            <td>ID</td>-->
-<!--            <td>Название</td>-->
-<!--            <td>Цена</td>-->
-<!--            <td></td>-->
-<!--        </tr>-->
-<!--        </thead>-->
-<!--        <tbody>-->
-<!--        <tr ng-repeat="p in productsList">-->
-<!--            <td>{{p.id}}</td>-->
-<!--            <td>{{p.title}}</td>-->
-<!--            <td>{{p.price}}</td>-->
-<!--            <td>-->
-<!--                <button class="btn btn-danger" ng-click="deleteProductFromCart(p.id)">Удалить из корзины</button>-->
-<!--            </td>-->
-<!--        </tr>-->
-<!--        </tbody>-->
-<!--    </table>-->
+    <h3>Корзина</h3>
+    <p></p>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <td>ID</td>
+            <td>Название</td>
+            <td>Цена</td>
+            <td></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="pr in productsListCart">
+            <td>{{pr.id}}</td>
+            <td>{{pr.title}}</td>
+            <td>{{pr.price}}</td>
+            <td>
+                <button class="btn btn-danger" ng-click="deleteProductFromCart(pr.id)">Удалить из корзины</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>
