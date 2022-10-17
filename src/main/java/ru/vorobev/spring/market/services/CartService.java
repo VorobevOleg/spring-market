@@ -2,27 +2,41 @@ package ru.vorobev.spring.market.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.vorobev.spring.market.dtos.Cart;
 import ru.vorobev.spring.market.entities.Product;
+import ru.vorobev.spring.market.exceptions.ResourceNotFoundException;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import javax.annotation.PostConstruct;
 
 @Service
 @RequiredArgsConstructor
 public class CartService {
-    private final HashMap<Long, Product> cartList;
+    private final ProductService productService;
+    private Cart tempCart;
 
-    public List<Product> findAll() {
-        return new ArrayList<Product>(cartList.values());
+    @PostConstruct
+    public void init() {
+        tempCart = new Cart();
     }
 
-    public void addProduct(Product product) {
-        Long id = product.getId();
-        cartList.put(id, product);
+    public Cart getCurrentCart() {
+        return  tempCart;
     }
 
-    public void deleteById(Long id) {
-        cartList.remove(id);
+    public void addProduct(Long productId) {
+        Product product = productService.findById(productId).orElseThrow(
+                () -> new ResourceNotFoundException("Не удалось добавить продукт с id = " + productId + ". Продукт не найден."));
+        tempCart.add(product);
+    }
+
+    public void clearCart() {
+        tempCart.clear();
+    }
+    public void deleteProductById(Long productId) {
+        tempCart.delete(productId);
+    }
+
+    public void decrementProduct(Long productId) {
+        tempCart.decrementQuantity(productId);
     }
 }
