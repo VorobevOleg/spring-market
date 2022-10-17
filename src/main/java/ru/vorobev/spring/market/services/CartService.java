@@ -28,8 +28,15 @@ public class CartService {
                 () -> new ResourceNotFoundException("Не удалось добавить продукт с id = " + productId + ". Продукт не найден."));
         tempCart.add(product);
     }
-    
-//    public void deleteById(Long id) {
-//        cartList.remove(id);
-//    }
+
+    public void clearCart() {
+        tempCart.clear();
+    }
+    public void deleteProductById(Long productId) {
+        tempCart.delete(productId);
+    }
+
+    public void decrementProduct(Long productId) {
+        tempCart.decrementQuantity(productId);
+    }
 }

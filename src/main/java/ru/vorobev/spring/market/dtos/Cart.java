@@ -22,16 +22,63 @@ public class Cart {
         return Collections.unmodifiableList(items);
     }
 
-    public void add(Product product) { // TODO: Доработать в ДЗ
-        items.add(new CartItem(product.getId(), product.getTitle(),1 , product.getPrice(), product.getPrice()));
+    public void add(Product product) {
+        if (!containsInCart(product)) {
+            items.add(new CartItem(product.getId(), product.getTitle(),1 , product.getPrice(), product.getPrice()));
+        } else {
+            incrementQuantity(product);
+        }
         recalculate();
     }
 
-    public void recalculate() {
-        totalPrice = BigDecimal.ZERO;
+    public void clear() {
+        items.clear();
+        recalculate();
+    }
 
+    public void delete(Long productId) {
+        for (CartItem item: items) {
+            if (productId.equals(item.getProductId())) {
+                items.remove(item);
+                break;
+            }
+        }
+        recalculate();
+    }
+
+    private boolean containsInCart(Product product) {
+        Long id = product.getId();
+        for (CartItem item: items) {
+            if (id.equals(item.getProductId())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void incrementQuantity(Product product) {
+        Long id = product.getId();
+        for (CartItem item: items) {
+            if (id.equals(item.getProductId())) {
+                item.incrementQuantity();
+            }
+        }
+    }
+
+    public void decrementQuantity(Long productId) {
+        for (CartItem item: items) {
+            if (productId.equals(item.getProductId())) {
+                item.decrementQuantity();
+            }
+        }
+    }
+
+    private void recalculate() {
+        totalPrice = BigDecimal.ZERO;
         for (CartItem item: items) {
             totalPrice = totalPrice.add(item.getPrice());
         }
     }
+
+
 }
