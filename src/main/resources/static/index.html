@@ -65,20 +65,25 @@
     <table class="table table-hover">
         <thead>
         <tr>
-            <td>ID</td>
             <td>Название</td>
+            <td>Количество</td>
             <td>Цена</td>
             <td></td>
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="pr in productsListCart">
-            <td>{{pr.id}}</td>
-            <td>{{pr.title}}</td>
-            <td>{{pr.price}}</td>
+        <tr ng-repeat="item in cart.items">
+            <td>{{item.productTitle}}</td>
+            <td>{{item.quantity}}</td>
+            <td>{{item.pricePerProduct + ' x ' + item.quantity + ' = ' + item.price}}</td>
             <td>
                 <button class="btn btn-danger" ng-click="deleteProductFromCart(pr.id)">Удалить из корзины</button>
             </td>
+        </tr>
+        <tr>
+            <td>Итого</td>
+            <td></td>
+            <td>{{cart.totalPrice}}</td>
         </tr>
         </tbody>
     </table>
