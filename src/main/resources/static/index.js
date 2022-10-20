@@ -36,11 +36,11 @@ angular.module('market', ['ngStorage']).controller('indexController', function (
             if (currentTime > payload.exp) {
                 console.log("Token s expired!!!");
                 delete $localStorage.springMarketUser;
-                $http.default.headers.common.Authorization = '';
+                $http.defaults.headers.common.Authorization = '';
             }
         } catch (e) {
         }
-        $http.default.headers.common.Authorization = 'Bearer ' + $localStorage.springMarketUser.token;
+        $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.springMarketUser.token;
     }
 
     $scope.loadProducts = function () {
