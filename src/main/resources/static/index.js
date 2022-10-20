@@ -28,6 +28,13 @@ angular.module('market', ['ngStorage']).controller('indexController', function (
         return $localStorage.springMarketUser;
     };
 
+    $scope.authCheck = function () {
+        $http.get('http://localhost:8189/market/auth_check')
+            .then(function (response) {
+                alert(response.data.value);
+            });
+    };
+
     if ($localStorage.springMarketUser) {
         try {
             let jwt = $localStorage.springMarketUser.token;
