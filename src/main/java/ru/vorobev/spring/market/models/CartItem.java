@@ -1,4 +1,4 @@
-package ru.vorobev.spring.market.dtos;
+package ru.vorobev.spring.market.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

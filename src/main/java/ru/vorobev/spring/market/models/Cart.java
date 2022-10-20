@@ -1,4 +1,4 @@
-package ru.vorobev.spring.market.dtos;
+package ru.vorobev.spring.market.models;
 
 import lombok.Data;
 import ru.vorobev.spring.market.entities.Product;
@@ -37,12 +37,20 @@ public class Cart {
     }
 
     public void delete(Long productId) {
-        for (CartItem item: items) {
-            if (productId.equals(item.getProductId())) {
-                items.remove(item);
-                break;
-            }
-        }
+
+//        Вместо этого:
+//
+//        for (CartItem item: items) {
+//            if (productId.equals(item.getProductId())) {
+//                items.remove(item);
+//                break;
+//            }
+//        }
+//
+//        Можно использвать это:
+
+        items.removeIf(item -> productId.equals(item.getProductId()));
+
         recalculate();
     }
 

@@ -2,7 +2,7 @@ package ru.vorobev.spring.market.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import ru.vorobev.spring.market.dtos.Cart;
+import ru.vorobev.spring.market.models.Cart;
 import ru.vorobev.spring.market.services.CartService;
 
 @RestController
