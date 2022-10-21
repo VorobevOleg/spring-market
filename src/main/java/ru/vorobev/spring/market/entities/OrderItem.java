@@ -1,34 +1,43 @@
 package ru.vorobev.spring.market.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Collection;
 
 @Entity
 @Data
-@Table(name = "users")
-public class User {
+@Table(name = "order_items")
+@NoArgsConstructor
+@AllArgsConstructor
+public class OrderItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "username")
-    private String username;
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
 
-    @Column(name = "password")
-    private String password;
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
 
-    @ManyToMany
-    @JoinTable(name = "users_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Collection<Role> roles;
+    @Column(name = "quantity")
+    private int quantity;
+
+    @Column(name = "price_per_product")
+    private BigDecimal pricePerProduct;
+
+    @Column(name = "price")
+    private BigDecimal price;
 
     @CreationTimestamp
     @Column(name = "created_at")

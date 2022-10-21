@@ -2,7 +2,7 @@ package ru.vorobev.spring.market.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.vorobev.spring.market.dtos.Cart;
+import ru.vorobev.spring.market.models.Cart;
 import ru.vorobev.spring.market.entities.Product;
 import ru.vorobev.spring.market.exceptions.ResourceNotFoundException;
 

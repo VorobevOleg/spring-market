@@ -26,10 +26,12 @@ public class ProductService {
     }
 
     public void createNewProduct(CreateNewProductDto createNewProductDto) {
-        Product product = new Product();
-        product.setTitle(createNewProductDto.getTitle());
-        product.setPrice(createNewProductDto.getPrice());
-        productRepository.save(product);
+        if (createNewProductDto != null) {
+            Product product = new Product();
+            product.setTitle(createNewProductDto.getTitle());
+            product.setPrice(createNewProductDto.getPrice());
+            productRepository.save(product);
+        }
     }
 
     public void deleteById(Long id) {

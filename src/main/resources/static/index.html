@@ -9,12 +9,41 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js"></script>
     <script src="index.js"></script>
 </head>
 
 <body>
 
 <div class="container" ng-controller="indexController">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="collapse navbar-collapse" id="navbarNav"  style="padding: 4px;">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link align-middle" href="#">Spring market</a>
+                </li>
+                <li class="nav-item" ng-show="!isUserLoggedIn()" style="padding: 4px;">
+                    <form class="align-middle" ng-submit="tryToAuth()">
+                        <div class="input-group input-group-sm">
+                            <input id="navLoginField" class="form-control" ng-model="user.username" type="text"
+                                    aria-describedby="inputGroup-sizing-sm" >
+                            <input id="navPasswordField" class="form-control" ng-model="user.password" type="password"
+                                    aria-describedby="inputGroup-sizing-sm">
+                            <button id="navLoginSubmit" class="btn btn-outline-warning btn-sm" type="submit">Войти</button>
+                        </div>
+                    </form>
+                </li>
+                <li class="nav-item" ng-show="isUserLoggedIn()"  style="padding: 4px;">
+                    <button class="btn btn-outline-secondary btn-sm" ng-click="tryToLogout()">Выйти</button>
+                </li>
+                <li class="nav-item"  style="padding: 4px;">
+                    <button class="btn btn-outline-warning btn-sm" ng-click="authCheck()">Кто я?</button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
     <p></p>
     <h1>Spring market</h1>
     <p></p>
@@ -88,12 +117,22 @@
             <td>Итого</td>
             <td></td>
             <td>{{cart.totalPrice}}</td>
-            <td>
-                <button class="btn btn-danger" ng-click="clearCart()">Очистить корзину</button>
-            </td>
         </tr>
         </tbody>
     </table>
+    <p></p>
+    <form class="row g-3" ng-submit="placeOrder()">
+        <div class="col-auto">
+            <input type="text" class="form-control" id="orderAddress" ng-model="orderData.address" placeholder="Адрес">
+        </div>
+        <div class="col-auto">
+            <input type="tel" class="form-control" id="orderPhone" ng-model="orderData.phone" placeholder="Номер телефона">
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary mb-3">Оформить заказ</button>
+            <button class="btn btn-danger mb-3" ng-click="clearCart()">Очистить корзину</button>
+        </div>
+    </form>
 </div>
 </body>
 </html>

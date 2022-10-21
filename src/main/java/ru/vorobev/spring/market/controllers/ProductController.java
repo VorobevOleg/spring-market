@@ -45,7 +45,7 @@ public class ProductController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createNewProduct(@RequestBody CreateNewProductDto createNewProductDto) {
+    public void createNewProduct(@RequestBody (required = false) CreateNewProductDto createNewProductDto) {
         productService.createNewProduct(createNewProductDto);
     }
 
