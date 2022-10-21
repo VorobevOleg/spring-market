@@ -117,12 +117,22 @@
             <td>Итого</td>
             <td></td>
             <td>{{cart.totalPrice}}</td>
-            <td>
-                <button class="btn btn-danger" ng-click="clearCart()">Очистить корзину</button>
-            </td>
         </tr>
         </tbody>
     </table>
+    <p></p>
+    <form class="row g-3" ng-submit="placeOrder()">
+        <div class="col-auto">
+            <input type="text" class="form-control" id="orderAddress" ng-model="orderData.address" placeholder="Адрес">
+        </div>
+        <div class="col-auto">
+            <input type="tel" class="form-control" id="orderPhone" ng-model="orderData.phone" placeholder="Номер телефона">
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary mb-3">Оформить заказ</button>
+            <button class="btn btn-danger mb-3" ng-click="clearCart()">Очистить корзину</button>
+        </div>
+    </form>
 </div>
 </body>
 </html>
