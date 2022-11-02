@@ -3,27 +3,31 @@ package ru.vorobev.spring.market.controllers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.vorobev.spring.market.dtos.CreateNewProductDto;
+import ru.vorobev.spring.market.converters.ProductConverter;
 import ru.vorobev.spring.market.dtos.ProductDto;
 import ru.vorobev.spring.market.entities.Product;
 import ru.vorobev.spring.market.exceptions.ResourceNotFoundException;
 import ru.vorobev.spring.market.services.ProductService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/products")
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductService productService;
+    private final ProductConverter productConverter;
 
     @GetMapping
     public List<ProductDto> findAllProducts() {
-        return productService.findAll();
+        return productService.findAll().stream()
+                .map(productConverter::entityToDto)
+                .collect(Collectors.toList());
     }
 
 
-//    Один из вариантов обработки некорректных запросов (минус - громоздкий)
+//    Один из вариантов обработки некорректных запросов (его минус - громоздкий)
 //
 //    @GetMapping("/{id}")
 //    public ResponseEntity<?> findProduct(@PathVariable Long id) {
@@ -39,14 +43,15 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public ProductDto findProduct(@PathVariable Long id) {
-        Product product = productService.findById(id).orElseThrow(()-> new ResourceNotFoundException("Продукт с id = " + id + " не найден"));
-        return new ProductDto(product.getId(), product.getTitle(), product.getPrice());
+        Product product = productService.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException("Продукт с id = " + id + " не найден"));
+        return productConverter.entityToDto(product);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createNewProduct(@RequestBody (required = false) CreateNewProductDto createNewProductDto) {
-        productService.createNewProduct(createNewProductDto);
+    public void createNewProduct(@RequestBody (required = false) ProductDto productDto) {
+        productService.createNewProduct(productDto);
     }
 
     @DeleteMapping("/{id}")

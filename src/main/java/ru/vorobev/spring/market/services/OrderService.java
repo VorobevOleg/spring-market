@@ -2,6 +2,7 @@ package ru.vorobev.spring.market.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.vorobev.spring.market.dtos.OrderData;
 import ru.vorobev.spring.market.entities.Order;
 import ru.vorobev.spring.market.entities.OrderItem;
@@ -25,6 +26,7 @@ public class OrderService {
     private final ProductService productService;
     private final CartService cartService;
 
+    @Transactional
     public void createOrder(User user, OrderData orderData) {
         Cart cart = cartService.getCurrentCart();
         String orderAddress = null;
@@ -48,7 +50,7 @@ public class OrderService {
                                 null,
                                 productService.findById(cartItem.getProductId())
                                         .orElseThrow(() -> new ResourceNotFoundException(
-                                                "Формирование заказа: Продукт с id = : " + cartItem.getProductId() + " не найден")),
+                                        "Формирование заказа: Продукт с id = : " + cartItem.getProductId() + " не найден")),
                                 order,
                                 cartItem.getQuantity(),
                                 cartItem.getPricePerProduct(),
