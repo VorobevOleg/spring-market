@@ -27,7 +27,9 @@ public class Order {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order",
+            cascade = {CascadeType.PERSIST,
+                       CascadeType.REFRESH})
     private List<OrderItem> items;
 
     @Column(name = "address")
