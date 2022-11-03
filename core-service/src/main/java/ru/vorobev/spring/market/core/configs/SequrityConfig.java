@@ -27,7 +27,7 @@ public class SequrityConfig extends WebSecurityConfigurerAdapter {
                 .cors().disable()
                 .authorizeRequests()
                 .antMatchers("/auth_check").authenticated()
-                .antMatchers("/api/v1/orders").authenticated()
+//                .antMatchers("/api/v1/orders").authenticated()
 //                .anyRequest().permitAll()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
