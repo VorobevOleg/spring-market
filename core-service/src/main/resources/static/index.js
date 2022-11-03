@@ -101,7 +101,7 @@ angular.module('market', ['ngStorage']).controller('indexController', function (
     };
 
     $scope.incrementProductInCart = function (productId) {
-        $http.get('http://localhost:8190/market-carts/api/v1/cart/add/' + productId)
+        $http.get('http://localhost:8190/market-carts/api/v1/cart/increment/' + productId)
             .then(function (response) {
                 $scope.loadCart();
             });

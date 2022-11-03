@@ -37,6 +37,10 @@ public class CartService {
         tempCart.delete(productId);
     }
 
+    public void incrementProduct(Long productId) {
+        tempCart.incrementQuantity(productId);
+    }
+
     public void decrementProduct(Long productId) {
         tempCart.decrementQuantity(productId);
     }

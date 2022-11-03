@@ -1,10 +1,10 @@
 package ru.vorobev.spring.market.core.integrations;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import ru.vorobev.spring.market.api.CartDto;
-import ru.vorobev.spring.market.api.ProductDto;
 
 import java.util.Optional;
 
@@ -13,7 +13,14 @@ import java.util.Optional;
 public class CartServiceIntegration {
     private final RestTemplate restTemplate;
 
+    @Value("${services-urls.cart}")
+    private String cartServiceUrl;
+
     public Optional<CartDto> getCurrentCart() {
-        return Optional.ofNullable(restTemplate.getForObject("http://localhost:8190/market-carts/api/v1/cart", CartDto.class));
+        return Optional.ofNullable(restTemplate.getForObject(cartServiceUrl, CartDto.class));
+    }
+
+    public void clearCurrentCart() {
+        restTemplate.getForObject(cartServiceUrl + "clear", String.class);
     }
 }

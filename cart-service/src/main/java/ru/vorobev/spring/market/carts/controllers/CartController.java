@@ -26,6 +26,11 @@ public class CartController {
         cartService.addProduct(id);
     }
 
+    @GetMapping("/increment/{id}")
+    public void incrementProductInCart(@PathVariable Long id) {
+        cartService.incrementProduct(id);
+    }
+
     @GetMapping("/decrement/{id}")
     public void decrementProductInCart(@PathVariable Long id) {
         cartService.decrementProduct(id);

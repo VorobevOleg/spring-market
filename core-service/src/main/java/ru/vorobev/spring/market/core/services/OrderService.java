@@ -10,7 +10,6 @@ import ru.vorobev.spring.market.core.entities.Order;
 import ru.vorobev.spring.market.core.entities.OrderItem;
 import ru.vorobev.spring.market.core.entities.User;
 import ru.vorobev.spring.market.core.integrations.CartServiceIntegration;
-import ru.vorobev.spring.market.core.repositories.OrderItemRepository;
 import ru.vorobev.spring.market.core.repositories.OrderRepository;
 
 import java.time.LocalDateTime;
@@ -23,9 +22,7 @@ import java.util.stream.Collectors;
 public class OrderService {
 
     private final OrderRepository orderRepository;
-    private final OrderItemRepository orderItemRepository;
     private final ProductService productService;
-
     private final CartServiceIntegration cartServiceIntegration;
 
     @Transactional
@@ -67,6 +64,7 @@ public class OrderService {
 
         orderRepository.save(order);
 
-        orderItemRepository.saveAll(orderItems);
+        cartServiceIntegration.clearCurrentCart();
+
     }
 }

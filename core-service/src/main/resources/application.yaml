@@ -21,3 +21,6 @@ spring:
 jwt:
   secret: 4gnrg8GH9ejFesfsefskfn4HK5kdf83JFlsdfjlasHFSLSJgesiluF3434FEdfgSFKw3
   lifetime: 36000000
+
+services-urls:
+  cart: http://localhost:8190/market-carts/api/v1/cart/

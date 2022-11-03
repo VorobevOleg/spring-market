@@ -1,6 +1,7 @@
 package ru.vorobev.spring.market.carts.integrations;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import ru.vorobev.spring.market.api.ProductDto;
@@ -12,7 +13,10 @@ import java.util.Optional;
 public class ProductServiceIntegration {
     private final RestTemplate restTemplate;
 
+    @Value("${services-urls.product}")
+    private String productServiceUrl;
+
     public Optional<ProductDto> getProductById(Long id) {
-        return Optional.ofNullable(restTemplate.getForObject("http://localhost:8189/market/api/v1/products/" + id, ProductDto.class));
+        return Optional.ofNullable(restTemplate.getForObject(productServiceUrl + id, ProductDto.class));
     }
 }

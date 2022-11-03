@@ -26,7 +26,7 @@ public class Cart {
         if (!containsInCart(product)) {
             items.add(new CartItem(product.getId(), product.getTitle(),1 , product.getPrice(), product.getPrice()));
         } else {
-            incrementQuantity(product);
+            incrementQuantity(product.getId());
         }
         recalculate();
     }
@@ -64,10 +64,9 @@ public class Cart {
         return false;
     }
 
-    public void incrementQuantity(ProductDto product) {
-        Long id = product.getId();
+    public void incrementQuantity(Long productId) {
         for (CartItem item: items) {
-            if (id.equals(item.getProductId())) {
+            if (productId.equals(item.getProductId())) {
                 item.incrementQuantity();
             }
         }
