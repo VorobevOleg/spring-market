@@ -8,7 +8,8 @@
 	<modules>
 		<module>core-service</module>
 		<module>cart-service</module>
-	</modules>
+        <module>api</module>
+    </modules>
 
 
 	<groupId>ru.vorobev</groupId>

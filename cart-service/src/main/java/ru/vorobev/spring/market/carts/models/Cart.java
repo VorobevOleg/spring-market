@@ -1,7 +1,7 @@
-package ru.vorobev.spring.market.core.models;
+package ru.vorobev.spring.market.carts.models;
 
 import lombok.Data;
-import ru.vorobev.spring.market.core.entities.Product;
+import ru.vorobev.spring.market.api.ProductDto;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ public class Cart {
         return Collections.unmodifiableList(items);
     }
 
-    public void add(Product product) {
+    public void add(ProductDto product) {
         if (!containsInCart(product)) {
             items.add(new CartItem(product.getId(), product.getTitle(),1 , product.getPrice(), product.getPrice()));
         } else {
@@ -54,7 +54,7 @@ public class Cart {
         recalculate();
     }
 
-    private boolean containsInCart(Product product) {
+    private boolean containsInCart(ProductDto product) {
         Long id = product.getId();
         for (CartItem item: items) {
             if (id.equals(item.getProductId())) {
@@ -64,7 +64,7 @@ public class Cart {
         return false;
     }
 
-    public void incrementQuantity(Product product) {
+    public void incrementQuantity(ProductDto product) {
         Long id = product.getId();
         for (CartItem item: items) {
             if (id.equals(item.getProductId())) {

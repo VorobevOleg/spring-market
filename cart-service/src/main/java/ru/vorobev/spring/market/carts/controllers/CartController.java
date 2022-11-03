@@ -1,9 +1,11 @@
-package ru.vorobev.spring.market.core.controllers;
+package ru.vorobev.spring.market.carts.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import ru.vorobev.spring.market.core.models.Cart;
-import ru.vorobev.spring.market.core.services.CartService;
+import ru.vorobev.spring.market.carts.models.Cart;
+import ru.vorobev.spring.market.carts.services.CartService;
+
+
 
 @RestController
 @RequestMapping("/api/v1/cart")

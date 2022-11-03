@@ -1,4 +1,4 @@
-package ru.vorobev.spring.market.core.models;
+package ru.vorobev.spring.market.carts.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
