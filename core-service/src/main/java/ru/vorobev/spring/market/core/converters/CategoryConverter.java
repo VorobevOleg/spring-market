@@ -2,7 +2,7 @@ package ru.vorobev.spring.market.core.converters;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import ru.vorobev.spring.market.core.dtos.CategoryDto;
+import ru.vorobev.spring.market.api.CategoryDto;
 import ru.vorobev.spring.market.core.entities.Category;
 
 import java.util.stream.Collectors;

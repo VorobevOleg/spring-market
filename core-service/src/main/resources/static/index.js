@@ -80,42 +80,42 @@ angular.module('market', ['ngStorage']).controller('indexController', function (
     };
 
     $scope.loadCart = function () {
-        $http.get('http://localhost:8189/market/api/v1/cart')
+        $http.get('http://localhost:8190/market-carts/api/v1/cart')
             .then(function (response) {
                 $scope.cart = response.data;
             });
     };
 
     $scope.addToCart = function (productId) {
-        $http.get('http://localhost:8189/market/api/v1/cart/add/' + productId)
+        $http.get('http://localhost:8190/market-carts/api/v1/cart/add/' + productId)
             .then(function (response) {
                 $scope.loadCart();
             });
     };
 
     $scope.clearCart = function () {
-        $http.get('http://localhost:8189/market/api/v1/cart/clear')
+        $http.get('http://localhost:8190/market-carts/api/v1/cart/clear')
             .then(function (response) {
                 $scope.loadCart();
             });
     };
 
     $scope.incrementProductInCart = function (productId) {
-        $http.get('http://localhost:8189/market/api/v1/cart/add/' + productId)
+        $http.get('http://localhost:8190/market-carts/api/v1/cart/add/' + productId)
             .then(function (response) {
                 $scope.loadCart();
             });
     };
 
     $scope.decrementProductInCart = function (productId) {
-        $http.get('http://localhost:8189/market/api/v1/cart/decrement/' + productId)
+        $http.get('http://localhost:8190/market-carts/api/v1/cart/decrement/' + productId)
             .then(function (response) {
                 $scope.loadCart();
             });
     };
 
     $scope.deleteProductFromCart = function (productId) {
-        $http.get('http://localhost:8189/market/api/v1/cart/delete/' + productId)
+        $http.get('http://localhost:8190/market-carts/api/v1/cart/delete/' + productId)
             .then(function (response) {
                 $scope.loadCart();
             });

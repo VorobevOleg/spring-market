@@ -1,4 +1,4 @@
-package ru.vorobev.spring.market.core.exceptions;
+package ru.vorobev.spring.market.carts.exceptions;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

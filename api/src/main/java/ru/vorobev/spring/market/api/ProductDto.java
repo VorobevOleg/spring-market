@@ -39,4 +39,14 @@ public class ProductDto {
     public void setCategoryTitle(String categoryTitle) {
         this.categoryTitle = categoryTitle;
     }
+
+    public ProductDto() {
+    }
+
+    public ProductDto(Long id, String title, BigDecimal price, String categoryTitle) {
+        this.id = id;
+        this.title = title;
+        this.price = price;
+        this.categoryTitle = categoryTitle;
+    }
 }

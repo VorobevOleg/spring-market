@@ -3,12 +3,13 @@ package ru.vorobev.spring.market.core.services;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.vorobev.spring.market.core.dtos.OrderData;
+import ru.vorobev.spring.market.api.CartDto;
+import ru.vorobev.spring.market.api.OrderData;
+import ru.vorobev.spring.market.api.ResourceNotFoundException;
 import ru.vorobev.spring.market.core.entities.Order;
 import ru.vorobev.spring.market.core.entities.OrderItem;
 import ru.vorobev.spring.market.core.entities.User;
-import ru.vorobev.spring.market.core.exceptions.ResourceNotFoundException;
-import ru.vorobev.spring.market.core.models.Cart;
+import ru.vorobev.spring.market.core.integrations.CartServiceIntegration;
 import ru.vorobev.spring.market.core.repositories.OrderItemRepository;
 import ru.vorobev.spring.market.core.repositories.OrderRepository;
 
@@ -24,11 +25,13 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final OrderItemRepository orderItemRepository;
     private final ProductService productService;
-    private final CartService cartService;
+
+    private final CartServiceIntegration cartServiceIntegration;
 
     @Transactional
     public void createOrder(User user, OrderData orderData) {
-        Cart cart = cartService.getCurrentCart();
+        CartDto cart = cartServiceIntegration.getCurrentCart().orElseThrow(
+                () -> new ResourceNotFoundException("Не удалось получить корзину"));
         String orderAddress = null;
         String orderPhone = null;
         if (orderData != null) {

@@ -2,10 +2,10 @@ package ru.vorobev.spring.market.core.converters;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import ru.vorobev.spring.market.core.dtos.ProductDto;
+import ru.vorobev.spring.market.api.ProductDto;
+import ru.vorobev.spring.market.api.ResourceNotFoundException;
 import ru.vorobev.spring.market.core.entities.Category;
 import ru.vorobev.spring.market.core.entities.Product;
-import ru.vorobev.spring.market.core.exceptions.ResourceNotFoundException;
 import ru.vorobev.spring.market.core.services.CategoryService;
 
 @Component

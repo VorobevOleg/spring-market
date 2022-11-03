@@ -2,8 +2,8 @@ package ru.vorobev.spring.market.core.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.vorobev.spring.market.api.ProductDto;
 import ru.vorobev.spring.market.core.converters.ProductConverter;
-import ru.vorobev.spring.market.core.dtos.ProductDto;
 import ru.vorobev.spring.market.core.entities.Product;
 import ru.vorobev.spring.market.core.repositories.ProductRepository;
 

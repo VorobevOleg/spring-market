@@ -3,11 +3,11 @@ package ru.vorobev.spring.market.core.controllers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import ru.vorobev.spring.market.api.ProductDto;
+import ru.vorobev.spring.market.api.ResourceNotFoundException;
 import ru.vorobev.spring.market.core.converters.ProductConverter;
-import ru.vorobev.spring.market.core.dtos.ProductDto;
 import ru.vorobev.spring.market.core.entities.Product;
 import ru.vorobev.spring.market.core.services.ProductService;
-import ru.vorobev.spring.market.core.exceptions.ResourceNotFoundException;
 
 import java.util.List;
 import java.util.stream.Collectors;
