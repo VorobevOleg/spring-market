@@ -11,7 +11,6 @@ import ru.vorobev.spring.market.carts.services.CartService;
 @RestController
 @RequestMapping("/api/v1/cart")
 @RequiredArgsConstructor
-@CrossOrigin("*")                   //Заглушка до настройки безопасности
 public class CartController {
     private final CartService cartService;
     private final CartConverter cartConverter;

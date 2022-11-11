@@ -1,8 +1,9 @@
-package ru.vorobev.spring.market.core.repositories;
+package ru.vorobev.spring.market.auth.repositories;
+
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import ru.vorobev.spring.market.core.entities.User;
+import ru.vorobev.spring.market.auth.entities.User;
 
 import java.util.Optional;
 
