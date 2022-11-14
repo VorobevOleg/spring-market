@@ -1,4 +1,4 @@
-package ru.vorobev.spring.market.core.entities;
+package ru.vorobev.spring.market.auth.entities;
 
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
@@ -12,7 +12,6 @@ import java.util.Collection;
 @Data
 @Table(name = "users")
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -23,6 +22,9 @@ public class User {
 
     @Column(name = "password")
     private String password;
+
+    @Column(name = "email")
+    private String email;
 
     @ManyToMany
     @JoinTable(name = "users_roles",
@@ -36,5 +38,5 @@ public class User {
 
     @UpdateTimestamp
     @Column(name = "updated_at")
-    private LocalDateTime updated_at;
+    private LocalDateTime updatedAt;
 }

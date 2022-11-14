@@ -5,7 +5,7 @@ server:
 
 integrations:
   product-service:
-    url: http://localhost:8189/market/
+    url: http://localhost:8189/market-core/
     connect-timeout: 5000
     read-timeout: 10000
     write-timeout: 5000

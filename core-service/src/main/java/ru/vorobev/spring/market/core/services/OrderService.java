@@ -8,13 +8,9 @@ import ru.vorobev.spring.market.api.OrderData;
 import ru.vorobev.spring.market.api.ResourceNotFoundException;
 import ru.vorobev.spring.market.core.entities.Order;
 import ru.vorobev.spring.market.core.entities.OrderItem;
-import ru.vorobev.spring.market.core.entities.User;
 import ru.vorobev.spring.market.core.integrations.CartServiceIntegration;
 import ru.vorobev.spring.market.core.repositories.OrderRepository;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,41 +22,30 @@ public class OrderService {
     private final CartServiceIntegration cartServiceIntegration;
 
     @Transactional
-    public void createOrder(User user, OrderData orderData) {
-        CartDto cart = cartServiceIntegration.getCurrentCart().orElseThrow(
-                () -> new ResourceNotFoundException("Не удалось получить корзину"));
+    public void createOrder(String username, OrderData orderData) {
+        CartDto cartDto = cartServiceIntegration.getCurrentCart();
         String orderAddress = null;
         String orderPhone = null;
         if (orderData != null) {
             orderAddress = orderData.getAddress();
             orderPhone = orderData.getPhone();
         }
-        Order order = new Order(
-                null,
-                user,
-                new ArrayList<OrderItem>(),
-                orderAddress,
-                orderPhone,
-                cart.getTotalPrice(),
-                LocalDateTime.now(),
-                LocalDateTime.now());
-
-        List<OrderItem> orderItems = cart.getItems().stream()
+        Order order = new Order();
+        order.setUsername(username);
+        order.setTotalPrice(cartDto.getTotalPrice());
+        order.setItems(cartDto.getItems().stream()
                 .map(cartItem -> new OrderItem(
-                                null,
                                 productService.findById(cartItem.getProductId())
                                         .orElseThrow(() -> new ResourceNotFoundException(
-                                        "Формирование заказа: Продукт с id = : " + cartItem.getProductId() + " не найден")),
+                                                "Формирование заказа: Продукт с id = : " + cartItem.getProductId() + " не найден")),
                                 order,
                                 cartItem.getQuantity(),
                                 cartItem.getPricePerProduct(),
-                                cartItem.getPrice(),
-                                LocalDateTime.now(),
-                                LocalDateTime.now()
+                                cartItem.getPrice()
                         )
-                ).collect(Collectors.toList());
-
-        order.setItems(orderItems);
+                ).collect(Collectors.toList()));
+        order.setAddress(orderAddress);
+        order.setPhone(orderPhone);
 
         orderRepository.save(order);
 
