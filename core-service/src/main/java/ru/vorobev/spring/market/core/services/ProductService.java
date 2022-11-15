@@ -27,7 +27,7 @@ public class ProductService {
     public void createNewProduct(ProductDto productDto) {
         if (productDto != null) {
             Product product = productConverter.dtoToEntity(productDto);
-            productRepository.save(product);
+//            productRepository.save(product);  TODO: перед этим, нужно сначала допилить передачу с фронта категории
         }
     }
 

@@ -22,7 +22,7 @@ public class OrderService {
     private final CartServiceIntegration cartServiceIntegration;
 
     @Transactional
-    public void createOrder(String username, OrderData orderData) {
+    public Order createOrder(String username, OrderData orderData) {
         CartDto cartDto = cartServiceIntegration.getCurrentCart();
         String orderAddress = null;
         String orderPhone = null;
@@ -51,5 +51,6 @@ public class OrderService {
 
         cartServiceIntegration.clearCurrentCart();
 
+        return order;
     }
 }
