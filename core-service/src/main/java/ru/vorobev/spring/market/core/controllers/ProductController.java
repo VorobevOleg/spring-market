@@ -10,6 +10,7 @@ import ru.vorobev.spring.market.core.entities.Product;
 import ru.vorobev.spring.market.core.services.ProductService;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -20,7 +21,7 @@ public class ProductController {
     private final ProductConverter productConverter;
 
     @GetMapping
-    public List<ProductDto> findAllProducts() {
+    public List<ProductDto> findAllProducts(@RequestParam(required = false) Map<String,String> filterParams) {
         return productService.findAll().stream()
                 .map(productConverter::entityToDto)
                 .collect(Collectors.toList());
