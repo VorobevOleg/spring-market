@@ -21,10 +21,16 @@ public class ProductController {
     private final ProductConverter productConverter;
 
     @GetMapping
-    public List<ProductDto> findAllProducts(@RequestParam(required = false) Map<String,String> filterParams) {
-        return productService.findAll().stream()
-                .map(productConverter::entityToDto)
-                .collect(Collectors.toList());
+    public List<ProductDto> findProducts(@RequestParam(required = false) Map<String,String> filterParams) { //TODO: в дальнейшем нужно возвращать page
+        if (filterParams.isEmpty()) {
+            return productService.findAll().stream()
+                    .map(productConverter::entityToDto)
+                    .collect(Collectors.toList());
+        } else {
+            return productService.findByFilters(filterParams).stream()
+                    .map(productConverter::entityToDto)
+                    .collect(Collectors.toList());
+        }
     }
 
 
