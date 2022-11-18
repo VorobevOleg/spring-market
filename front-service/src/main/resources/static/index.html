@@ -100,6 +100,11 @@
             <input type="number" class="form-control" id="newProductPrice" ng-model="newProduct.price" placeholder="Цена">
         </div>
         <div class="col-auto">
+            <select class="form-control" ng-model="newProduct.categoryTitle">
+                <option ng-repeat="c in categories" value="{{c.title}}">{{c.title}}</option>
+            </select>
+        </div>
+        <div class="col-auto">
             <button type="submit" class="btn btn-primary mb-3">Создать</button>
         </div>
     </form>

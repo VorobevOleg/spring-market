@@ -22,4 +22,11 @@ public class CategoryConverter {
         return categoryDto;
     }
 
+    public CategoryDto entityToDtoWithoutProducts(Category category) {
+        CategoryDto categoryDto = new CategoryDto();
+        categoryDto.setId(category.getId());
+        categoryDto.setTitle(category.getTitle());
+        return categoryDto;
+    }
+
 }

@@ -1,6 +1,7 @@
 package ru.vorobev.spring.market.core.services;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import ru.vorobev.spring.market.api.ProductDto;
@@ -18,6 +19,8 @@ import java.util.Optional;
 public class ProductService {
     private final ProductRepository productRepository;
     private final ProductConverter productConverter;
+    @Value("${pagination.page.size.default}")
+    private Integer defaultPageSize;
 
     public List<Product> findAll() {
         return productRepository.findAll();
@@ -46,7 +49,7 @@ public class ProductService {
     public void createNewProduct(ProductDto productDto) {
         if (productDto != null) {
             Product product = productConverter.dtoToEntity(productDto);
-//            productRepository.save(product);  TODO: перед этим, нужно сначала допилить передачу с фронта категории
+            productRepository.save(product);
         }
     }
 

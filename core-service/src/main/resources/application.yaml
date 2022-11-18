@@ -25,3 +25,8 @@ integrations:
     connect-timeout: 5000
     read-timeout: 10000
     write-timeout: 5000
+
+pagination:
+  page:
+    size:
+      default: 3

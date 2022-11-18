@@ -89,6 +89,13 @@ angular.module('market', ['ngStorage']).controller('indexController', function (
             });
     };
 
+    $scope.loadCategories = function () {
+        $http.get('http://localhost:5555/core/api/v1/products/categories')
+            .then(function (response) {
+                $scope.categories = response.data;
+            });
+    };
+
     $scope.addToCart = function (productId) {
         $http.get('http://localhost:5555/cart/api/v1/cart/add/' + productId)
             .then(function (response) {
@@ -135,4 +142,5 @@ angular.module('market', ['ngStorage']).controller('indexController', function (
 
     $scope.loadProducts();
     $scope.loadCart();
+    $scope.loadCategories();
 });
