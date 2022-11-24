@@ -47,6 +47,25 @@
 
     <h3>Список товаров</h3>
     <p></p>
+
+    <h3>Фильтр</h3>
+    <p></p>
+    <form class="row g-3" ng-submit="loadProductsWithFilters()">
+        <div class="col-auto">
+            <input type="text" class="form-control" id="productFiltersTitle" ng-model="productFilters.title" placeholder="Название">
+        </div>
+        <div class="col-auto">
+            <input type="number" class="form-control" id="productFiltersMinPrice" ng-model="productFilters.min" placeholder="Минимальная цена">
+        </div>
+        <div class="col-auto">
+            <input type="number" class="form-control" id="productFiltersMaxPrice" ng-model="productFilters.max" placeholder="Максимальная цена">
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary mb-3">Применить фильтр</button>
+        </div>
+    </form>
+    <p></p>
+
     <table class="table table-hover">
         <thead>
         <tr>
@@ -79,6 +98,11 @@
         </div>
         <div class="col-auto">
             <input type="number" class="form-control" id="newProductPrice" ng-model="newProduct.price" placeholder="Цена">
+        </div>
+        <div class="col-auto">
+            <select class="form-control" ng-model="newProduct.categoryTitle">
+                <option ng-repeat="c in categories" value="{{c.title}}">{{c.title}}</option>
+            </select>
         </div>
         <div class="col-auto">
             <button type="submit" class="btn btn-primary mb-3">Создать</button>

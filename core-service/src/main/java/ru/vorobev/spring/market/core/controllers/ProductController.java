@@ -1,15 +1,21 @@
 package ru.vorobev.spring.market.core.controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import ru.vorobev.spring.market.api.CategoryDto;
 import ru.vorobev.spring.market.api.ProductDto;
 import ru.vorobev.spring.market.api.ResourceNotFoundException;
+import ru.vorobev.spring.market.core.converters.CategoryConverter;
 import ru.vorobev.spring.market.core.converters.ProductConverter;
+import ru.vorobev.spring.market.core.entities.Category;
 import ru.vorobev.spring.market.core.entities.Product;
+import ru.vorobev.spring.market.core.services.CategoryService;
 import ru.vorobev.spring.market.core.services.ProductService;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -18,12 +24,20 @@ import java.util.stream.Collectors;
 public class ProductController {
     private final ProductService productService;
     private final ProductConverter productConverter;
+    private final CategoryService categoryService;
+    private final CategoryConverter categoryConverter;
 
     @GetMapping
-    public List<ProductDto> findAllProducts() {
-        return productService.findAll().stream()
-                .map(productConverter::entityToDto)
-                .collect(Collectors.toList());
+    public List<ProductDto> findProducts(@RequestParam(required = false) Map<String,String> filterParams) { //TODO: в дальнейшем нужно возвращать page
+        if (filterParams.isEmpty()) {
+            return productService.findAll().stream()
+                    .map(productConverter::entityToDto)
+                    .collect(Collectors.toList());
+        } else {
+            return productService.findByFilters(filterParams).stream()
+                    .map(productConverter::entityToDto)
+                    .collect(Collectors.toList());
+        }
     }
 
 
@@ -57,5 +71,12 @@ public class ProductController {
     @DeleteMapping("/{id}")
     public void deleteProductById(@PathVariable Long id) {
         productService.deleteById(id);
+    }
+
+    @GetMapping("/categories")
+    public List<CategoryDto> findCategories() {
+        return categoryService.findAll().stream()
+                .map(categoryConverter::entityToDtoWithoutProducts)
+                .collect(Collectors.toList());
     }
 }

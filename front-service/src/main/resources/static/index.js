@@ -50,6 +50,16 @@ angular.module('market', ['ngStorage']).controller('indexController', function (
             });
     };
 
+    $scope.loadProductsWithFilters = function () {
+        $http.get('http://localhost:5555/core/api/v1/products',
+            {params: {filterTitle: $scope.productFilters.title,
+                        filterMin: $scope.productFilters.min,
+                        filterMax: $scope.productFilters.max}})
+                .then(function (response) {
+                    $scope.productsList = response.data;
+                });
+    };
+
     $scope.showProductInfo = function (productId) {
         $http.get('http://localhost:5555/core/api/v1/products/' + productId)
             .then(function (response) {
@@ -76,6 +86,13 @@ angular.module('market', ['ngStorage']).controller('indexController', function (
         $http.get('http://localhost:5555/cart/api/v1/cart')
             .then(function (response) {
                 $scope.cart = response.data;
+            });
+    };
+
+    $scope.loadCategories = function () {
+        $http.get('http://localhost:5555/core/api/v1/products/categories')
+            .then(function (response) {
+                $scope.categories = response.data;
             });
     };
 
@@ -125,4 +142,5 @@ angular.module('market', ['ngStorage']).controller('indexController', function (
 
     $scope.loadProducts();
     $scope.loadCart();
+    $scope.loadCategories();
 });
