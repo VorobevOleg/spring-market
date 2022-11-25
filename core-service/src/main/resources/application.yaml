@@ -29,4 +29,4 @@ integrations:
 pagination:
   page:
     size:
-      default: 3
+      default: 5
