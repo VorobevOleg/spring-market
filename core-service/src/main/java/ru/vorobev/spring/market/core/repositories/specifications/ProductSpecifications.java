@@ -1,4 +1,4 @@
-package ru.vorobev.spring.market.core.dao;
+package ru.vorobev.spring.market.core.repositories.specifications;
 
 import org.springframework.data.jpa.domain.Specification;
 import ru.vorobev.spring.market.core.entities.Product;

@@ -28,16 +28,18 @@ public class ProductController {
     private final CategoryConverter categoryConverter;
 
     @GetMapping
-    public List<ProductDto> findProducts(@RequestParam(required = false) Map<String,String> filterParams) { //TODO: в дальнейшем нужно возвращать page
-        if (filterParams.isEmpty()) {
-            return productService.findAll().stream()
-                    .map(productConverter::entityToDto)
-                    .collect(Collectors.toList());
-        } else {
-            return productService.findByFilters(filterParams).stream()
-                    .map(productConverter::entityToDto)
-                    .collect(Collectors.toList());
+    public List<ProductDto> findProducts(
+            @RequestParam(required = false) Map<String,String> filterParams,
+            @RequestParam(defaultValue = "1", name = "page") Integer page
+    ) {
+
+        if (page < 1) {
+            page = 1;
         }
+
+        return productService.findAll(filterParams, page - 1)
+                .map(productConverter::entityToDto)
+                .getContent();
     }
 
 

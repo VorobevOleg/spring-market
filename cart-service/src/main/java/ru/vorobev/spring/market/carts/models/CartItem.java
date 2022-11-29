@@ -22,7 +22,7 @@ public class CartItem {
     }
 
     public void recalculate() {
-        price = pricePerProduct.multiply(new BigDecimal(quantity));
+        price = pricePerProduct.multiply(BigDecimal.valueOf(quantity));
     }
 
     public void decrementQuantity() {

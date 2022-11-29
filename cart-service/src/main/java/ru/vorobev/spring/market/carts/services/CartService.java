@@ -31,13 +31,12 @@ public class CartService {
     public void clearCart() {
         tempCart.clear();
     }
+
     public void deleteProductById(Long productId) {
         tempCart.delete(productId);
     }
 
-    public void incrementProduct(Long productId) {
-        tempCart.incrementQuantity(productId);
-    }
+    public void incrementProduct(Long productId) { tempCart.incrementQuantity(productId);}
 
     public void decrementProduct(Long productId) {
         tempCart.decrementQuantity(productId);

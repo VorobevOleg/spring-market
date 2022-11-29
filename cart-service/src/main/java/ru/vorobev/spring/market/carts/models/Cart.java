@@ -68,6 +68,7 @@ public class Cart {
         for (CartItem item: items) {
             if (productId.equals(item.getProductId())) {
                 item.incrementQuantity();
+                recalculate();
             }
         }
     }
@@ -76,6 +77,7 @@ public class Cart {
         for (CartItem item: items) {
             if (productId.equals(item.getProductId())) {
                 item.decrementQuantity();
+                recalculate();
             }
         }
     }
