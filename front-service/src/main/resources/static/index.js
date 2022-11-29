@@ -38,6 +38,14 @@
             }
             $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.springMarketUser.token;
         }
+
+        if (!$localStorage.springMarketGuestCartId) {
+            $http.get('http://localhost:5555/cart/api/v1/cart/generate_uuid')
+                .then(function successCallback(response) {
+                    $localStorage.springMarketGuestCartId = response.data.value;
+
+            });
+        }
     }
 })();
 

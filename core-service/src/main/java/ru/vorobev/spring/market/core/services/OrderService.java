@@ -23,7 +23,7 @@ public class OrderService {
 
     @Transactional
     public Order createOrder(String username, OrderData orderData) {
-        CartDto cartDto = cartServiceIntegration.getCurrentCart();
+        CartDto cartDto = cartServiceIntegration.getCurrentCart(username);
         String orderAddress = null;
         String orderPhone = null;
         if (orderData != null) {
@@ -49,7 +49,7 @@ public class OrderService {
 
         orderRepository.save(order);
 
-        cartServiceIntegration.clearCurrentCart();
+        cartServiceIntegration.clearCurrentCart(username);
 
         return order;
     }
