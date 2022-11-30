@@ -18,10 +18,6 @@ public class Cart {
         this.totalPrice = BigDecimal.ZERO;
     }
 
-    public List<CartItem> getItems() {
-        return Collections.unmodifiableList(items);
-    }
-
     public void add(ProductDto product) {
         if (!containsInCart(product)) {
             items.add(new CartItem(product.getId(), product.getTitle(),1 , product.getPrice(), product.getPrice()));
