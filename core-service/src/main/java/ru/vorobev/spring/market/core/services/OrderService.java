@@ -11,6 +11,7 @@ import ru.vorobev.spring.market.core.entities.OrderItem;
 import ru.vorobev.spring.market.core.integrations.CartServiceIntegration;
 import ru.vorobev.spring.market.core.repositories.OrderRepository;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -52,5 +53,9 @@ public class OrderService {
         cartServiceIntegration.clearCurrentCart(username);
 
         return order;
+    }
+
+    public List<Order> findByUsername(String username) {
+        return orderRepository.findByUsername(username);
     }
 }
