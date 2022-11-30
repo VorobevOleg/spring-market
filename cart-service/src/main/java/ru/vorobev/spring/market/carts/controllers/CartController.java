@@ -58,8 +58,10 @@ public class CartController {
         cartService.deleteProductById(targetUuid, id);
     }
 
-    private String getCartUuid (String username, String uuid) {     //По-хорошему бы вынести куда-нить в фильтры
+    //По-хорошему бы вынести куда-нить в фильтры
+    private String getCartUuid (String username, String uuid) {
         if (username != null) {
+            cartService.mergeGuestCartIntoUser(username, uuid);
             return username;
         }
         return uuid;

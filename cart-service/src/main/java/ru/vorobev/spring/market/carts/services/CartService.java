@@ -50,4 +50,14 @@ public class CartService {
     public void decrementProduct(String uuid, Long productId) {
         getCurrentCart(uuid).decrementQuantity(productId);
     }
+
+    public void mergeGuestCartIntoUser(String username, String cartUuid) {
+        Cart guestCart = getCurrentCart(cartUuid);
+        if (guestCart.getItems().isEmpty()) {
+            return;
+        }
+        Cart userCart = getCurrentCart(username);
+        guestCart.getItems().forEach(userCart::add);
+        guestCart.clear();
+    }
 }
