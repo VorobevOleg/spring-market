@@ -6,11 +6,13 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.vorobev.spring.market.auth.entities.Role;
 import ru.vorobev.spring.market.auth.entities.User;
 import ru.vorobev.spring.market.auth.repositories.UserRepository;
+import ru.vorobev.spring.market.auth.utils.JwtTokenUtil;
 
 import java.util.Collection;
 import java.util.List;
