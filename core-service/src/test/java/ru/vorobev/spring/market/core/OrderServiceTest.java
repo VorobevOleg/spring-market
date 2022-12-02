@@ -49,7 +49,7 @@ public class OrderServiceTest {
         cartDto.setTotalPrice(BigDecimal.valueOf(210));
         cartDto.setItems(List.of(cartItemDto));
 
-        Mockito.doReturn(cartDto).when(cartServiceIntegration).getCurrentCart();
+        Mockito.doReturn(cartDto).when(cartServiceIntegration).getCurrentCart("Bob");
 
         OrderData orderData = new OrderData();
         orderData.setAddress("Street 111");

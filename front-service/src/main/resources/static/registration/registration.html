@@ -1,0 +1,26 @@
+<div>
+    <p></p>
+    <h3>Регистрация</h3>
+    <p></p>
+
+    <form class="row g-3" ng-submit="registerNewUser()">
+        <div class="col-auto">
+            <input type="text" class="form-control" id="newUserName" ng-model="newUser.username" placeholder="Введите имя">
+        </div>
+        <div class="col-auto">
+            <input type="text" class="form-control" id="newUserEmail" ng-model="newUser.email" placeholder="Введите Email">
+        </div>
+        <div class="col-auto">
+            <input type="password" class="form-control" id="newUserPassord" ng-model="newUser.password" placeholder="Введите пароль">
+        </div>
+        <div class="col-auto">
+            <input type="password" class="form-control" id="newUserConfirmPassword" ng-model="newUser.confirmPassword" placeholder="Подтверите пароль">
+        </div>
+        <p></p>
+
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary mb-3">Зарегистрироваться</button>
+        </div>
+    </form>
+    <p></p>
+</div>

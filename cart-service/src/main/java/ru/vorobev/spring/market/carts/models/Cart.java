@@ -5,7 +5,6 @@ import ru.vorobev.spring.market.api.ProductDto;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Data
@@ -18,15 +17,25 @@ public class Cart {
         this.totalPrice = BigDecimal.ZERO;
     }
 
-    public List<CartItem> getItems() {
-        return Collections.unmodifiableList(items);
-    }
-
     public void add(ProductDto product) {
         if (!containsInCart(product)) {
             items.add(new CartItem(product.getId(), product.getTitle(),1 , product.getPrice(), product.getPrice()));
         } else {
             incrementQuantity(product.getId());
+        }
+        recalculate();
+    }
+
+    public void add(CartItem cartItem) {
+        if (!containsInCart(cartItem)) {
+            items.add(cartItem);
+        } else {
+            for (CartItem item: items) {
+                if (cartItem.getProductId().equals(item.getProductId())) {
+                    item.setQuantity(item.getQuantity() + cartItem.getQuantity());
+                    item.setPrice(item.getPrice().add(cartItem.getPrice()));
+                }
+            }
         }
         recalculate();
     }
@@ -56,6 +65,16 @@ public class Cart {
 
     private boolean containsInCart(ProductDto product) {
         Long id = product.getId();
+        for (CartItem item: items) {
+            if (id.equals(item.getProductId())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean containsInCart(CartItem cartItem) {
+        Long id = cartItem.getProductId();
         for (CartItem item: items) {
             if (id.equals(item.getProductId())) {
                 return true;

@@ -11,6 +11,7 @@ import ru.vorobev.spring.market.core.entities.OrderItem;
 import ru.vorobev.spring.market.core.integrations.CartServiceIntegration;
 import ru.vorobev.spring.market.core.repositories.OrderRepository;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,7 +24,7 @@ public class OrderService {
 
     @Transactional
     public Order createOrder(String username, OrderData orderData) {
-        CartDto cartDto = cartServiceIntegration.getCurrentCart();
+        CartDto cartDto = cartServiceIntegration.getCurrentCart(username);
         String orderAddress = null;
         String orderPhone = null;
         if (orderData != null) {
@@ -49,8 +50,12 @@ public class OrderService {
 
         orderRepository.save(order);
 
-        cartServiceIntegration.clearCurrentCart();
+        cartServiceIntegration.clearCurrentCart(username);
 
         return order;
+    }
+
+    public List<Order> findByUsername(String username) {
+        return orderRepository.findByUsername(username);
     }
 }
