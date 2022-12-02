@@ -22,6 +22,11 @@ public class CartController {
         return new StringResponse(UUID.randomUUID().toString());
     }
 
+    @GetMapping("/{uuid}/merge/{username}")
+    public void mergeGuestCart(@PathVariable String uuid, @PathVariable String username) {
+        cartService.mergeGuestCartIntoUser(username, uuid);
+    }
+
     @GetMapping("/{uuid}")
     public CartDto getCurrentCart(@RequestHeader(name = "username", required = false) String username, @PathVariable String uuid) {
         String targetUuid = getCartUuid(username, uuid);
@@ -61,7 +66,6 @@ public class CartController {
     //По-хорошему бы вынести куда-нить в фильтры
     private String getCartUuid (String username, String uuid) {
         if (username != null) {
-            cartService.mergeGuestCartIntoUser(username, uuid);
             return username;
         }
         return uuid;
