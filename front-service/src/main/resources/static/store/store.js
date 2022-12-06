@@ -2,21 +2,18 @@ angular.module('market').controller('storeController', function ($scope, $http, 
     const contextPath = 'http://localhost:5555/core/';
     const cartContextPath = 'http://localhost:5555/cart/';
 
-    $scope.loadProducts = function () {
-        $http.get(contextPath + 'api/v1/products').then(function (response) {
-            $scope.productsList = response.data;
+    $scope.loadProducts = function (pageIndex = 1) {
+        $http.get(contextPath + 'api/v1/products', {
+             params: {
+                 page: pageIndex,
+                 filterTitle: $scope.productFilters ? $scope.productFilters.title : null,
+                 filterMin: $scope.productFilters ? $scope.productFilters.min : null,
+                 filterMax: $scope.productFilters ? $scope.productFilters.max : null
+            }
+        }).then(function (response) {
+            $scope.productsPage = response.data;
+            $scope.generatePagesList($scope.productsPage.totalPages);
         });
-    };
-
-    $scope.loadProductsWithFilters = function () {
-        $http.get(contextPath + 'api/v1/products',
-            {params: {filterTitle: $scope.productFilters.title,
-                    filterMin: $scope.productFilters.min,
-                    filterMax: $scope.productFilters.max
-                    }
-            }).then(function (response) {
-                $scope.productsList = response.data;
-            });
     };
 
     $scope.showProductInfo = function (productId) {
@@ -48,6 +45,14 @@ angular.module('market').controller('storeController', function ($scope, $http, 
         $http.get(cartContextPath + 'api/v1/cart/' + $localStorage.springMarketGuestCartId + '/add/' + productId).then(function (response) {});
     };
 
-    $scope.loadProducts();
+    $scope.generatePagesList = function (totalPages) {
+        out = [];
+        for (let i = 0; i < totalPages; i++) {
+            out.push(i + 1);
+        }
+        $scope.pagesList = out;
+    }
+
+    $scope.loadProducts(1);
     $scope.loadCategories();
 });

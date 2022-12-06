@@ -10,10 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.vorobev.spring.market.api.AppError;
-import ru.vorobev.spring.market.api.CategoryDto;
-import ru.vorobev.spring.market.api.ProductDto;
-import ru.vorobev.spring.market.api.ResourceNotFoundException;
+import ru.vorobev.spring.market.api.*;
 import ru.vorobev.spring.market.core.converters.CategoryConverter;
 import ru.vorobev.spring.market.core.converters.ProductConverter;
 import ru.vorobev.spring.market.core.entities.Product;
@@ -39,24 +36,28 @@ public class ProductController {
             responses = {
                     @ApiResponse(
                             description = "Успешный ответ", responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = Page.class))
+                            content = @Content(schema = @Schema(implementation = PageDto.class))
                     )
             }
     )
     @GetMapping
-    public List<ProductDto> findProducts(
+    public PageDto<ProductDto> findProducts(
+            @RequestParam(defaultValue = "1", name = "page") Integer page,
             @Parameter(description = "Список фильтров типа Map") // С Map не будет работать, можно заменить на List
-            @RequestParam(required = false)  Map<String, String> filterParams,
-            @RequestParam(defaultValue = "1", name = "page") Integer page
+            @RequestParam(required = false)  Map<String, String> filterParams
     ) {
 
         if (page < 1) {
             page = 1;
         }
-
-        return productService.findAll(filterParams, page - 1)
-                .map(productConverter::entityToDto)
-                .getContent();
+        //Надо бы спрятать в сервис :TODO
+        Page<ProductDto> jpaPage = productService.findAll(filterParams, page - 1)
+                .map(productConverter::entityToDto);
+        PageDto<ProductDto> out = new PageDto<>();
+        out.setPage(jpaPage.getNumber());
+        out.setItems(jpaPage.getContent());
+        out.setTotalPages(jpaPage.getTotalPages());
+        return out;
     }
 
 

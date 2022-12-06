@@ -40,22 +40,6 @@ public class ProductService {
         return productRepository.findAll(spec, PageRequest.of(page, defaultPageSize));
     }
 
-    public List<Product> findByFilters(Map<String,String> filterParams) {
-        Specification<Product> spec = Specification.where(null);
-        if (filterParams.containsKey("filterTitle")) {
-            spec = spec.and(ProductSpecifications.withTitle(filterParams.get("filterTitle")));
-        }
-        if (filterParams.containsKey("filterMin")) {
-            spec = spec.and(ProductSpecifications.withMinPrice(Integer.valueOf(filterParams.get("filterMin"))));
-        }
-        if (filterParams.containsKey("filterMax")) {
-            spec = spec.and(ProductSpecifications.withMaxPrice(Integer.valueOf(filterParams.get("filterMax"))));
-        }
-
-        return productRepository.findAll(spec);
-
-    }
-
     public Optional<Product> findById(Long id) {
         return productRepository.findById(id);
     }
