@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 
 @Schema(description = "Модель продукта")
 public class ProductDto {
-    @Schema(description = "ID продукта", required = true, example = "1")
+    @Schema(description = "ID продукта", example = "1")
     private Long id;
     @Schema(description = "Название продукта", required = true, maxLength = 255, minLength = 3, example = "Коробка конфет")
     private String title;

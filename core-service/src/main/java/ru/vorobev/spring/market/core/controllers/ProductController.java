@@ -7,7 +7,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.vorobev.spring.market.api.*;
@@ -43,21 +42,11 @@ public class ProductController {
     @GetMapping
     public PageDto<ProductDto> findProducts(
             @RequestParam(defaultValue = "1", name = "page") Integer page,
-            @Parameter(description = "Список фильтров типа Map") // С Map не будет работать, можно заменить на List
+            @Parameter(description = "Список фильтров типа Map") // С Map не будет работать Swagger, можно заменить на List
             @RequestParam(required = false)  Map<String, String> filterParams
     ) {
 
-        if (page < 1) {
-            page = 1;
-        }
-        //Надо бы спрятать в сервис :TODO
-        Page<ProductDto> jpaPage = productService.findAll(filterParams, page - 1)
-                .map(productConverter::entityToDto);
-        PageDto<ProductDto> out = new PageDto<>();
-        out.setPage(jpaPage.getNumber());
-        out.setItems(jpaPage.getContent());
-        out.setTotalPages(jpaPage.getTotalPages());
-        return out;
+        return productService.findAll(filterParams, page - 1);
     }
 
 
@@ -109,11 +98,30 @@ public class ProductController {
         productService.createNewProduct(productDto);
     }
 
+    @Operation(
+            summary = "Запрос на удаление продукта",
+            responses = {
+                    @ApiResponse(
+                            description = "Продукт успешно удален", responseCode = "200",
+                            content = @Content(schema = @Schema(implementation = Long.class))
+                    )
+            }
+    )
     @DeleteMapping("/{id}")
-    public void deleteProductById(@PathVariable Long id) {
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteProductById(@PathVariable @Parameter(description = "Идентификатор продукта", required = true) Long id) {
         productService.deleteById(id);
     }
 
+    @Operation(
+            summary = "Запрос на получение списка категорий продуктов",
+            responses = {
+                    @ApiResponse(
+                            description = "Успешный ответ", responseCode = "200",
+                            content = @Content(schema = @Schema(implementation = CategoryDto.class))
+                    )
+            }
+    )
     @GetMapping("/categories")
     public List<CategoryDto> findCategories() {
         return categoryService.findAll().stream()
