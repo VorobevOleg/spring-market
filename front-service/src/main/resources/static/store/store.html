@@ -5,7 +5,7 @@
 
     <h3>Фильтр</h3>
     <p></p>
-    <form class="row g-3" ng-submit="loadProductsWithFilters()">
+    <form class="row g-3" ng-submit="loadProducts()">
         <div class="col-auto">
             <input type="text" class="form-control" id="productFiltersTitle" ng-model="productFilters.title" placeholder="Название">
         </div>
@@ -31,7 +31,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="p in productsList">
+        <tr ng-repeat="p in productsPage.items">
             <td>{{p.id}}</td>
             <td>{{p.title}}</td>
             <td>{{p.price}}</td>
@@ -64,4 +64,12 @@
         </div>
     </form>
     <p></p>
+
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <li class="page-item" ng-repeat="pageIndex in pagesList">
+                <button class="page-link" ng-click="loadProducts(pageIndex)">{{pageIndex}}</button>
+            </li>
+        </ul>
+    </nav>
 </div>
