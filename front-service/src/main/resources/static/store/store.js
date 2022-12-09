@@ -28,19 +28,6 @@ angular.module('market').controller('storeController', function ($scope, $http, 
         });
     };
 
-    $scope.createNewProduct = function () {
-        $http.post(contextPath + 'api/v1/products', $scope.newProduct).then(function (response) {
-            $scope.newProduct = null;
-            $scope.loadProducts();
-        });
-    };
-
-    $scope.loadCategories = function () {
-        $http.get(contextPath + 'api/v1/products/categories').then(function (response) {
-            $scope.categories = response.data;
-        });
-    };
-
     $scope.addToCart = function (productId) {
         $http.get(cartContextPath + 'api/v1/cart/' + $localStorage.springMarketGuestCartId + '/add/' + productId).then(function (response) {});
     };
@@ -54,5 +41,4 @@ angular.module('market').controller('storeController', function ($scope, $http, 
     }
 
     $scope.loadProducts(1);
-    $scope.loadCategories();
 });

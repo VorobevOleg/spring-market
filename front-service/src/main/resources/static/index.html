@@ -26,6 +26,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#!/store">Каталог товаров</a>
                 </li>
+                <li class="nav-item" ng-show="isUserLoggedIn()">
+                    <a class="nav-link" href="#!/addNewProduct">Добавить продукт</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#!/cart">Корзина</a>
                 </li>
@@ -62,6 +65,7 @@
     <script src="orders/orders.js"></script>
     <script src="welcome/welcome.js"></script>
     <script src="registration/registration.js"></script>
+    <script src="addNewProduct/addNewProduct.js"></script>
 
 </div>
 </body>
