@@ -1,5 +1,7 @@
 package ru.vorobev.spring.market.core.entities;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -11,8 +13,10 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
+@Builder
 @Table(name = "products")
 @NoArgsConstructor
+@AllArgsConstructor
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
