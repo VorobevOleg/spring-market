@@ -1,0 +1,36 @@
+{
+  "mappings": [
+    {
+      "request": {
+        "method": "POST",
+        "urlPath": "/oauth2/token"
+      },
+      "response": {
+        "status": 200,
+        "bodyFileName": "jwt-token.json",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "fixedDelayMilliseconds": 0
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "queryParameters":{
+          "min_price": {
+            "equalTo": 11
+          }
+        },
+        "urlPath": "/api/v1/products"
+      },
+      "response": {
+        "status": 200,
+        "bodyFileName": "get-first-product.json",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    }
+  ]
+}

@@ -17,13 +17,21 @@ public class ProductConverter {
     }
 
     public Product dtoToEntity(ProductDto productDto) {
-        Product product = new Product();
-        product.setId(product.getId());
-        product.setTitle(productDto.getTitle());
-        product.setPrice(productDto.getPrice());
-        Category category = categoryService.findByTitle(productDto.getCategoryTitle())
-                .orElseThrow(() -> new ResourceNotFoundException("Category not found"));
-        product.setCategory(category);
-        return product;
+//        Product product = new Product();
+//        product.setId(productDto.getId());
+//        product.setTitle(productDto.getTitle());
+//        product.setPrice(productDto.getPrice());
+//        Category category = categoryService.findByTitle(productDto.getCategoryTitle())
+//                .orElseThrow(() -> new ResourceNotFoundException("Category not found"));
+//        product.setCategory(category);
+
+//  Попробовал реализовать паттерн "Builder" на примере продукта
+
+        return Product.builder()
+                .id(productDto.getId())
+                .title(productDto.getTitle())
+                .category(categoryService.findByTitle(productDto.getCategoryTitle())
+                        .orElseThrow(() -> new ResourceNotFoundException("Category not found")))
+                .build();
     }
 }

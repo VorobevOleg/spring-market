@@ -15,6 +15,7 @@ import ru.vorobev.spring.market.core.converters.ProductConverter;
 import ru.vorobev.spring.market.core.entities.Product;
 import ru.vorobev.spring.market.core.services.CategoryService;
 import ru.vorobev.spring.market.core.services.ProductService;
+import ru.vorobev.spring.market.core.validators.ProductValidator;
 
 import java.util.List;
 import java.util.Map;

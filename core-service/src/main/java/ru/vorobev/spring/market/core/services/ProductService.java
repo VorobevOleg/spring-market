@@ -12,6 +12,7 @@ import ru.vorobev.spring.market.core.converters.ProductConverter;
 import ru.vorobev.spring.market.core.repositories.specifications.ProductSpecifications;
 import ru.vorobev.spring.market.core.entities.Product;
 import ru.vorobev.spring.market.core.repositories.ProductRepository;
+import ru.vorobev.spring.market.core.validators.ProductValidator;
 
 import java.util.Map;
 import java.util.Optional;
@@ -21,6 +22,7 @@ import java.util.Optional;
 public class ProductService {
     private final ProductRepository productRepository;
     private final ProductConverter productConverter;
+    private  final ProductValidator productValidator;
     @Value("${pagination.page.size.default}")
     private Integer defaultPageSize;
 
@@ -58,6 +60,7 @@ public class ProductService {
 
     public void createNewProduct(ProductDto productDto) {
         if (productDto != null) {
+            productValidator.validate(productDto);
             Product product = productConverter.dtoToEntity(productDto);
             productRepository.save(product);
         }
