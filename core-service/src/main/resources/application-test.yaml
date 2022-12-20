@@ -2,7 +2,10 @@ server:
   port: 8189
   servlet:
     context-path: /market-core
+
 spring:
+  flyway:
+    locations: classpath:/db/testdata
   datasource:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:mem:mydatabase;MODE=PostgreSQL
@@ -13,11 +16,6 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.H2Dialect
-  h2:
-    console:
-      enabled: true
-      settings:
-        web-allow-others: false
 
 integrations:
   cart-service:

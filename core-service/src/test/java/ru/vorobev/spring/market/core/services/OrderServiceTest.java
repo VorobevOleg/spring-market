@@ -1,4 +1,4 @@
-package ru.vorobev.spring.market.core;
+package ru.vorobev.spring.market.core.services;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -22,8 +22,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
-@SpringBootTest
-//@SpringBootTest(classes = OrderService.class)     // можно запускать только какие-то определенные бины (так быстрее)
+@SpringBootTest(classes = OrderService.class)     // можно запускать только какие-то определенные бины (так быстрее)
 public class OrderServiceTest {
     @Autowired
     private OrderService orderService;

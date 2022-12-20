@@ -40,7 +40,7 @@ public class ProductService {
         }
 
         if (page < 0) {
-            page = 1;
+            page = 0;
         }
 
         Page<ProductDto> jpaPage = productRepository.findAll(spec, PageRequest.of(page, defaultPageSize))
